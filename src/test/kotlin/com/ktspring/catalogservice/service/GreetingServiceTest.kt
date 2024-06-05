@@ -1,7 +1,6 @@
 package com.ktspring.catalogservice.service
 
 import com.ktspring.catalogservice.controller.GreetingController
-import io.mockk.every
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
