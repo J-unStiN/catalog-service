@@ -1,6 +1,7 @@
 package com.ktspring.catalogservice.controller
 
 import com.ktspring.catalogservice.dto.CourseDTO
+import com.ktspring.catalogservice.entity.Course
 import com.ktspring.catalogservice.repository.CourseRepository
 import com.ktspring.catalogservice.util.courseEntityList
 import org.junit.jupiter.api.Assertions
@@ -63,6 +64,28 @@ class CourseControllerTest {
             .responseBody
 
         assertEquals(3, courseDTOs!!.size);
+    }
+
+    @Test
+    fun updateCourse() {
+
+        val course = Course(null, "테스용 이름입니다,", "개발")
+        courseRepository.save(course);
+
+        val courseDTO = CourseDTO(null, "테스용 이름111입니다", "개발11")
+
+        val updateCourse = webTestClient
+            .put()
+            .uri("/v1/courses/{courseId}", course.id)
+            .bodyValue(courseDTO)
+            .exchange()
+            .expectStatus().isOk
+            .expectBody(CourseDTO::class.java)
+            .returnResult()
+            .responseBody
+
+        assertEquals("테스용 이름111입니다", updateCourse!!.name)
+
     }
 
 }

@@ -22,4 +22,13 @@ class CourseController(
     @GetMapping
     fun retrieveAllCourses(): List<CourseDTO> = courseService.retrieveAllCourses();
 
+
+
+    @PutMapping("/{course_id}")
+    fun updateCourse(@PathVariable("course_id") course_id: Long,
+                     @RequestBody courseDTO: CourseDTO)
+    = courseService.updateCourse(course_id, courseDTO);
+
+
+
 }

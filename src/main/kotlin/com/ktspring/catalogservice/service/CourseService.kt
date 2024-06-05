@@ -2,6 +2,7 @@ package com.ktspring.catalogservice.service
 
 import com.ktspring.catalogservice.dto.CourseDTO
 import com.ktspring.catalogservice.entity.Course
+import com.ktspring.catalogservice.exception.CourseNotFoundException
 import com.ktspring.catalogservice.repository.CourseRepository
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
@@ -34,6 +35,24 @@ class CourseService(val courseRepository: CourseRepository) {
             .map {
                 CourseDTO(it.id, it.name, it.category)
             }
+    }
+
+    fun updateCourse(courseId: Long, courseDTO: CourseDTO): CourseDTO {
+        val existingCourse = courseRepository.findById(courseId);
+
+        return if(existingCourse.isPresent){
+            existingCourse.get()
+                .let {
+                    it.name = courseDTO.name
+                    it.category = courseDTO.category
+                    courseRepository.save(it)
+                    CourseDTO(it.id, it.name, it.category)
+                }
+
+        }else {
+            throw CourseNotFoundException("course not found : $courseId")
+        }
+
     }
 
 
