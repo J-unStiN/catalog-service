@@ -43,6 +43,19 @@ class CourseControllerUnitTest {
         Assertions.assertTrue(
             responseBody!!.id != null
         )
+    }
+
+
+    @Test
+    fun addCourseValid() {
+        val courseDTO = CourseDTO(null, "", "")
+
+        val responseBody = webTestClient
+            .post()
+            .uri("/v1/courses")
+            .bodyValue(courseDTO)
+            .exchange()
+            .expectStatus().isBadRequest
 
     }
 

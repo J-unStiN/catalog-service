@@ -33,6 +33,8 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("io.github.microutils:kotlin-logging-jvm:2.0.11")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+
 
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("com.h2database:h2")
