@@ -30,5 +30,11 @@ class CourseController(
     = courseService.updateCourse(course_id, courseDTO);
 
 
+    @DeleteMapping("/{course_id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteCourse(@PathVariable("course_id") course_id: Long) {
+        courseService.deleteCourse(course_id);
+    }
+
 
 }

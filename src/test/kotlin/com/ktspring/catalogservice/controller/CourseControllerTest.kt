@@ -85,6 +85,19 @@ class CourseControllerTest {
             .responseBody
 
         assertEquals("테스용 이름111입니다", updateCourse!!.name)
+    }
+
+    @Test
+    fun deleteCourse() {
+
+        val course = Course(null, "테스용 이름입니다,", "개발")
+        courseRepository.save(course);
+
+        val updateCourse = webTestClient
+            .delete()
+            .uri("/v1/courses/{courseId}", course.id)
+            .exchange()
+            .expectStatus().isNoContent
 
     }
 
