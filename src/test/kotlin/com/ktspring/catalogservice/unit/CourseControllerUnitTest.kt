@@ -56,8 +56,36 @@ class CourseControllerUnitTest {
             .bodyValue(courseDTO)
             .exchange()
             .expectStatus().isBadRequest
+            .expectBody(String::class.java)
+            .returnResult()
+            .responseBody
 
+        Assertions.assertEquals("Name cannot be blank., category cannot be blank.", responseBody)
     }
+
+
+
+    @Test
+    fun addCourse_RuntimeException() {
+        val courseDTO = CourseDTO(null, "", "")
+
+
+
+        val responseBody = webTestClient
+            .post()
+            .uri("/v1/courses")
+            .bodyValue(courseDTO)
+            .exchange()
+            .expectStatus().is5xxServerError
+            .expectBody(String::class.java)
+            .returnResult()
+            .responseBody
+
+        Assertions.assertEquals("Name cannot be blank., category cannot be blank.", responseBody)
+    }
+
+
+
 
 
 
